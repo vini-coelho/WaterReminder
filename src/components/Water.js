@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { Animated, View, StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width
+const { height } = Dimensions.get('window').height
 
 export default props => 
     <View>
@@ -24,8 +25,8 @@ export default props =>
             <View style={styles.bubble}></View>
         </View>
         
-        <View style={[styles.container, {height: props.alt}]}>
-        </View>
+        <Animated.View style={[styles.container, {height: props.alt}]}>
+        </Animated.View>
     </View>
 
 const styles = StyleSheet.create({
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: '#1199ff',
+        height: 0,
     },
     bubbleContainer: {
         position: 'absolute',

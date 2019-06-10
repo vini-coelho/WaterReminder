@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default props => 
-    <TouchableOpacity onPress={props.onClick} style={styles.container}>
+    <TouchableOpacity disabled={props.turnedOff} onPress={props.onClick} style={styles.container}>
         <Text style={styles.text}>Beber Água</Text>
     </TouchableOpacity>
 

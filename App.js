@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
+import { Animated, StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
 import Button from './src/components/Button';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Water from './src/components/Water'
 import AmountSelection from './src/screens/AmountSelection';
-import { isFlowBaseAnnotation } from '@babel/types';
 
 export default class App extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      waterHeight: 0,
+      waterHeight: new Animated.Value(0),
+      waterHeightCom: 0,
       goal: 2300,
       waterLeft: 2300,
       goalReached: false,
-      visible: isFlowBaseAnnotation
+      visible: false,
     }
   }
 
@@ -24,13 +24,19 @@ export default class App extends Component {
     const height = Dimensions.get('window').height
     const goal = this.state.goal
     const lvlHeight = lvl*(height/goal)
-    const waterHeight = this.state.waterHeight + lvlHeight
+    const waterHeightCom = this.state.waterHeightCom+lvlHeight
     const waterLeft = this.state.waterLeft - lvl
+
+    Animated.timing(this.state.waterHeight, {
+      toValue: waterHeightCom,
+      timing: 2000,
+    }).start()
+
     if (waterLeft <= 0) {
       const goalReached = true
       this.setState({goalReached})
     }
-    this.setState({waterHeight, waterLeft})
+    this.setState({waterLeft, waterHeightCom})
   }
 
   openSelection = props => {
@@ -61,7 +67,7 @@ export default class App extends Component {
 
         <View style={styles.bottom}>
           <View style={styles.body}>
-            <Button onClick={this.openSelection}/>
+            <Button turnedOff={this.state.goalReached} onClick={this.openSelection}/>
           </View>
           <View style={styles.footer}>
             <Icon name='poll' size={30} color='#111'/>
