@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Animated, StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
+import { Animated, StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Button from './src/components/Button';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Water from './src/components/Water'
@@ -72,7 +72,9 @@ export default class App extends Component {
           <View style={styles.footer}>
             <Icon name='poll' size={30} color='#111'/>
             <Icon name='notifications-none' size={30} color='#111'/>
-            <Icon name='settings' size={30} color='#111'/>
+            <TouchableWithoutFeedback onPress={this.openSelection}>
+              <Icon name='settings' size={30} color='#111'/>
+            </TouchableWithoutFeedback>
           </View>
         </View>
       </View>
